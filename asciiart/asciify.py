@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from PIL import Image
 import sys
 import os
@@ -17,7 +15,7 @@ ascii_pixels = [
         '@'
     ]
 
-def ascii_art(filename=None):
+def ascii_art(filename=None, lines=None):
 
     if filename is None:
         if (len(sys.argv) < 2):
@@ -25,7 +23,15 @@ def ascii_art(filename=None):
 
         filename = sys.argv[1];
 
-    lines = 35
+    if lines is None:
+        if len(sys.argv) > 2:
+            lines = int(sys.argv[2])
+            # TODO trap invalid param
+            if lines <= 0:
+                sys.exit("Must use positive number of lines")
+        else:
+            lines = 35
+
 
     try :
         img = Image.open(filename)
